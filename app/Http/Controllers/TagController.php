@@ -35,7 +35,7 @@ class TagController extends Controller
             )
         );
 
-        return redirect()->to(route('tasks.home'));
+        return redirect()->to(route('tasks.home'))->with('message', 'The tag has been created');
     }
 
     public function update(UpdateTagRequest $request, Tag $tag): RedirectResponse
@@ -44,7 +44,7 @@ class TagController extends Controller
 
         $tag->update($request->validated());
 
-        return redirect()->to(route('tasks.home'));
+        return redirect()->to(route('tasks.home'))->with('message', 'The tag has been updated');
     }
 
     public function destroy(tag $tag): RedirectResponse
@@ -53,16 +53,6 @@ class TagController extends Controller
 
         $tag->delete();
 
-        return redirect()->to(route('tasks.home'));
-    }
-
-    public function complete(Tag $tag): RedirectResponse
-    {
-        $this->authorize('update', $tag);
-
-        $tag->complete = !$tag->complete;
-        $tag->save();
-
-        return redirect()->to(route('tasks.home'));
+        return redirect()->to(route('tasks.home'))->with('message', 'The tag has been deleted');
     }
 }

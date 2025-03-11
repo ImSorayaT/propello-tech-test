@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session()->has('message'))
+        <div class="p-4 bg-grey text-center bg-red-500 text-white mb-4">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+    
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900">
             @if($tasks->isNotEmpty())

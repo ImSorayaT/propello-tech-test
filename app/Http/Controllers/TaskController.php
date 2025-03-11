@@ -65,7 +65,7 @@ class TaskController extends Controller
             )
         );
 
-        return redirect()->to(route('tasks.home'));
+        return redirect()->to(route('tasks.home'))->with('message', 'The task has been created');
     }
 
     public function update(UpdateTaskRequest $request, Task $task): RedirectResponse
@@ -75,7 +75,7 @@ class TaskController extends Controller
         $task->update($request->validated());
         $task->tags()->sync($request->input('tags'));
 
-        return redirect()->to(route('tasks.home'));
+        return redirect()->to(route('tasks.home'))->with('message', 'The task has been updated');
     }
 
     public function destroy(Task $task): RedirectResponse
@@ -84,7 +84,7 @@ class TaskController extends Controller
 
         $task->delete();
 
-        return redirect()->to(route('tasks.home'));
+        return redirect()->to(route('tasks.home'))->with('message', 'The task has been deleted');;
     }
 
     public function complete(Task $task): RedirectResponse
