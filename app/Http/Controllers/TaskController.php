@@ -29,8 +29,31 @@ class TaskController extends Controller
     public function edit(Task $task): View
     {
         $this->authorize('update', $task);
+        $get_tags = auth()->user()?->tags ?? [];
 
-        return view('tasks.edit', compact('task'));
+        $task_tags = $task->tags->map( function($tag){
+            return $tag->id;
+        })->toArray();
+
+
+        $tags = $get_tags->map(function ($tag) use ($task_tags){
+            
+            $result = [
+                'id' => $tag->id,
+                'name' => $tag->name,
+                'selected' => false 
+            ];
+            
+            if(in_array( $tag->id, $task_tags, false)){
+                $result['selected'] = true;                
+            }
+            
+            return $result;
+
+            
+        });
+
+        return view('tasks.edit', compact('task', 'tags'));
     }
 
     public function store(CreateTaskRequest $request): RedirectResponse
@@ -50,6 +73,7 @@ class TaskController extends Controller
         $this->authorize('update', $task);
 
         $task->update($request->validated());
+        $task->tags()->sync($request->input('tags'));
 
         return redirect()->to(route('tasks.home'));
     }

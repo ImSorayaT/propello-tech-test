@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks_tags', function (Blueprint $table) {
+        Schema::create('tag_task', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Tag::class);
             $table->foreignIdFor(\App\Models\Task::class);
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks_tags');
+        Schema::dropIfExists('tag_task');
     }
 };

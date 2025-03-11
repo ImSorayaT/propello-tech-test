@@ -28,7 +28,8 @@ class Task extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'complete'
+        'complete',
+        'tags'
     ];
 
     protected $casts = [
@@ -40,7 +41,7 @@ class Task extends Model
         $this->belongsTo(User::class);
     }
 
-    public function tags(): BelongsToMany
+    public function tags()
     {
         return $this->belongsToMany(Tag::class);
     }

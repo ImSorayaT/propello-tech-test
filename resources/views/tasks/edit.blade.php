@@ -9,8 +9,17 @@
 
                 <div class="pb-4">
                     <x-forms.input-label for="name" :value="__('Name')" />
-                    <x-forms.text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$task->name" required autofocus />
+                    <x-forms.text-input id="name" class="block my-6 w-full" type="text" name="name" :value="$task->name" required autofocus />
                     <x-forms.input-error :messages="$errors->get('name')" class="mt-2" />
+                    
+
+                    <x-forms.select
+                        name="tags"
+                        :options="$tags"
+                    />
+                 
+
+
                 </div>
 
                 <x-elements.primary-button>
